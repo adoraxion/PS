@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.widget.TextView;
 import android.widget.Toast;
 
+//FACEBOOK
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -17,15 +18,22 @@ import com.facebook.Profile;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
-
 //import com.facebook.AppEventsLogger;
+
+//ADSENSE
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 
 public class Inicio extends Activity {
 
     private TextView info;
     private TextView nombreFB;
+    //facebook
     private LoginButton loginButton;
     private CallbackManager callbackManager;
+    //adsense
+    private AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +47,14 @@ public class Inicio extends Activity {
         nombreFB = (TextView)findViewById(R.id.nombre);
         loginButton = (LoginButton)findViewById(R.id.login_button);
         loginButton.setReadPermissions("user_friends");
+
+        //adsense
+        mAdView = (AdView) findViewById(R.id.adView);
+        //AdRequest adRequest = new AdRequest.Builder().build();
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build();
+        mAdView.loadAd(adRequest);
 
 
 
@@ -101,6 +117,10 @@ public class Inicio extends Activity {
     protected void onResume() {
         super.onResume();
 
+        if (mAdView != null) {
+            mAdView.resume();
+        }
+
         // Logs 'install' and 'app activate' App Events.
         AppEventsLogger.activateApp(this);
     }
@@ -109,8 +129,19 @@ public class Inicio extends Activity {
     protected void onPause() {
         super.onPause();
 
+        if (mAdView != null) {
+            mAdView.pause();
+        }
         // Logs 'app deactivate' App Event.
         AppEventsLogger.deactivateApp(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        if (mAdView != null) {
+            mAdView.destroy();
+        }
+        super.onDestroy();
     }
 
 }
