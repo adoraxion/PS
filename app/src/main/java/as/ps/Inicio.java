@@ -50,10 +50,10 @@ public class Inicio extends Activity {
 
         //adsense
         mAdView = (AdView) findViewById(R.id.adView);
-        //AdRequest adRequest = new AdRequest.Builder().build();
-        AdRequest adRequest = new AdRequest.Builder()
+        AdRequest adRequest = new AdRequest.Builder().build();
+        /*AdRequest adRequest = new AdRequest.Builder()
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .build();
+                .build();*/
         mAdView.loadAd(adRequest);
 
 
