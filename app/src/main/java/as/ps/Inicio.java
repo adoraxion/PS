@@ -1,6 +1,7 @@
 package as.ps;
 
 import android.app.Activity;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -51,14 +52,16 @@ public class Inicio extends Activity {
         //adsense
         mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
-        /*AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .build();*/
+        /*AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();*/
         mAdView.loadAd(adRequest);
 
+        //seo
+        Intent intent = getIntent();
+        String action = intent.getAction();
+        Uri data = intent.getData();
 
 
-
+        //facebook
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
